@@ -4,11 +4,12 @@
 #include<math.h>
 #include<stdlib.h>
 
+#define uint unsigned int
 
-void mark(unsigned int *A, unsigned int *B, unsigned int n)
+void mark(uint *A, uint *B, uint n)
 {
 	int i = 31-n%32;
-	unsigned int x = pow(2,i);
+	uint x = pow(2,i);
 	if (((A[n/32] >> i) & 1))
 	{
 		if (!((B[n/32] >> i) & 1))
@@ -20,7 +21,7 @@ void mark(unsigned int *A, unsigned int *B, unsigned int n)
 	A[n/32] ^= x;
 }
 
-bool is_dup(unsigned int *A, unsigned int *B, unsigned int n)
+bool is_dup(uint *A, uint *B, uint n)
 {
 	int i = 31-n%32;
 	if (((B[n/32] >> i) & 1))
@@ -30,9 +31,9 @@ bool is_dup(unsigned int *A, unsigned int *B, unsigned int n)
 	return false;
 }
 
-bool solve(unsigned int *A, unsigned int *B, int n)
+bool solve(uint *A, uint *B, int n)
 {
-	unsigned int hold_arr[100000] = {0};
+	uint hold_arr[100000] = {0};
 	for ( int i = 0 ; i <  n ; i++ )
 	{
 		scanf("%u",&hold_arr[i]);
@@ -56,8 +57,8 @@ int main()
 	while (t--)
 	{
 		int n;
-		unsigned int *A = (unsigned int*) calloc(31250001,4);
-		unsigned int *B = (unsigned int*) calloc(31250001,4);
+		uint *A = (uint*) calloc(31250001,4);
+		uint *B = (uint*) calloc(31250001,4);
 		scanf("%d",&n);
 		if (!solve(A,B,n)) printf("NO\n");
 		free(A);
