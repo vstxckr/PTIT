@@ -1,6 +1,7 @@
 /*   n bit Gray-Code Generator with input is n
 /    Code using simple recursion solution of Gray-Code Generator
 /    n+1 bit Gray-Code = ("0" + n-1_bit Gray-Code ) + ("1" + n-1_bit (reflected) Gray-Code)
+/                                     - by vstxckr - 
 */
 #include<stdio.h>
 #include<string.h>

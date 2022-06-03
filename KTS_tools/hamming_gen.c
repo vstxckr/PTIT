@@ -1,3 +1,7 @@
+/*  Hamming-Code Generator (input is message)
+/   Code uses simple algorithm which has in every instruction in the internet :<
+/                            - by vstxckr -
+*/
 #include<stdio.h>
 #include<math.h>
 #include<string.h>
