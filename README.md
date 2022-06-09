@@ -1,2 +1,2 @@
-# Assignments in PTIT
-This repo has assignments in code.ptit.edu.vn
+# Assignments
+## This is place where I store my results of some subjects when I am studying in PTIT
