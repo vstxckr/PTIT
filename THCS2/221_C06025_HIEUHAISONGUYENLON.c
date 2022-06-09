@@ -1,95 +1,58 @@
 #include<stdio.h>
-#include<stdbool.h>
 #include<string.h>
-#include<math.h>
-#include<time.h>
 
-void comprchar(char a[1001],char b[1001],int lena, int lenb)
+void solve()
 {
-    char temp[1001]={'\0'};
-    for ( int i=0 ; i<=lena-lenb-1 ; i++ )
-    {
-        temp[i]='0';
-    }
-    for ( int i=lena-lenb ; i<lena ; i++ )
-    {
-        temp[i]=b[i-lena+lenb];
-    }
-    strcpy(b,temp);
-}
-
-void hieu(char a[1001],char b[1001],int lena, int lenb)
-{
-    if (lena>lenb)
-    {
-        comprchar(a,b,lena,lenb);
-        lenb=lena;
-    }
-    else
-    {
-        comprchar(b,a,lenb,lena);
-        lena=lenb;
-    }
-    int carry=0;
-    char result[1001]={'\0'};
-    for ( int i=lena-1 ; i>=0 ; i-- )
-    {
-        int s=0;
-        s=s+a[i]-b[i]-carry;
-        if (s<0)
-        {
-            s+=10;
-            carry=1;
-        }
-        else
-            carry=0;
-        result[i]=s+48;
-    }
-    bool toggle=false;
-    for ( int i=0 ; i<lena ; i++ )
-    {
-        if (result[i]!='0' && toggle==false || toggle==true)
-        {
-            printf("%c",result[i]);
-            toggle=true;
-        }
-    }
-    if (toggle==false)
-    {
-        printf("0");
-    }
-    printf("\n");
-}
-
-void luachon(char a[1001],char b[1001],int lena,int lenb)
-{
-    if (lena>lenb)
-    {
-        hieu(a,b,lena,lenb);
-    }
-    else
-    {
-        if (lena==lenb)
-        {
-            if (a[0]>b[0])
-                hieu(a,b,lena,lenb);
-            else
-                hieu(b,a,lenb,lena);
-        }
-        else
-            hieu(b,a,lenb,lena);
-    }
+	char x[1005] = {}, y[1005] = {}, res[1005] = {};
+	gets(x), gets(y);
+	int len_x = strlen(x), len_y = strlen(y);
+	
+	if (!strcmp(x,y))
+	{
+		printf("0\n");
+		return ;
+	}
+	
+	if (len_x < len_y || (len_y == len_x && strcmp(x,y) < 0))
+	{
+		char temp[1005]; strcpy(temp, x), strcpy(x,y), strcpy(y, temp);
+		int t1 = len_x; len_x = len_y, len_y = t1;
+	}
+	
+	int resp_y, carry = 0, sub;
+	for ( int i = len_x -1 ; i >= 0 ; i-- )
+	{
+		resp_y = (len_y > 0 ? (y[--len_y] - 48) : 0);
+		sub = x[i] - 48 - resp_y - carry;
+		if (sub < 0)
+		{
+			carry = 1;
+			sub += 10;
+		}
+		else
+			carry = 0;
+		res[i] = sub + 48;
+	}
+	
+	char is_va = 0;
+	for ( int i = 0 ; i < len_x ; i++ )
+	{
+		if (res[i] != '0' || is_va)
+		{
+			printf("%c",res[i]);
+			is_va = 1;
+		}
+	}
+	printf("\n");
 }
 
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    while (t--)
-    {
-        char a[1001]={'\0'},b[1001]={'\0'};
-        scanf("%s %s",&a,&b);
-        int lena=strlen(a),lenb=strlen(b);
-        luachon(a,b,lena,lenb);
-    }
+	int t;
+	scanf("%d",&t);
+	getchar();
+	while (t--)
+	{
+		solve();
+	}
 }

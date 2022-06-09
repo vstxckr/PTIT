@@ -1,73 +1,40 @@
 #include<stdio.h>
-#include<stdbool.h>
 #include<string.h>
-#include<math.h>
-#include<time.h>
 
-void cmprchar(char a[100],char b[100],int lena, int lenb)
+void solve()
 {
-    char temp[100]={'\0'};
-    for ( int i=0 ; i<=lena-lenb-1 ; i++ ) 
-    {
-        temp[i]='0';
-    }
-    for ( int i=lena-lenb ; i<lena ; i++ )
-    {
-        temp[i]=b[i-lena+lenb];
-    }
-    strcpy(b,temp);
-}
-
-char *tong(char a[100],char b[100])
-{
-    int lena=strlen(a);
-    int lenb=strlen(b);
-    if (lena>lenb)
-    {
-        cmprchar(a,b,lena,lenb);
-        lenb=lena;
-    }
-    if (lenb>lena)
-    {
-        cmprchar(b,a,lenb,lena);
-        lena=lenb;
-    }
-    int carry=0;
-    char result[100]={'\0'};
-    for ( int i=lena-1 ; i>=0 ; i-- )
-    {
-        int s=0;
-        s+=a[i]+b[i]-48*2+carry;
-        if (s>9)
-        {
-            carry=1;
-            s-=10;
-        }
-        else
-            carry=0;
-        result[i]=s+48;
-    }
-    if (carry==1)
-    {
-        char temp[100]={'\0'};
-        temp[0]='1';
-        for ( int i=1 ; i<=lena ; i++ )
-        {
-            temp[i]=result[i-1];
-        }
-        strcpy(result,temp);
-    }
-    printf("%s\n",result);
+	char x[503] = {}, y[503] = {}, res[503] = {};
+	scanf("%s",x);
+	scanf("%s",y);
+	int len_x = strlen(x), len_y = strlen(y);
+	if (len_x < len_y)
+	{
+		char temp[503] = {};
+		strcpy(temp, x);
+		strcpy(x, y);
+		strcpy(y, temp);
+		int t1 = len_x;
+		len_x = len_y, len_y = t1;
+	}
+	int resp_y, sum, carry = 0;
+	for ( int i = len_x-1 ; i >= 0 ; i-- )
+	{
+		resp_y = (len_y > 0 ? y[--len_y] - 48 : 0);
+		sum = resp_y + x[i] - 48 + carry;
+		carry = (sum >= 10 ? 1 : 0);
+		sum %= 10;
+		res[i] = sum + 48;
+	}
+	if (carry == 1) printf("1");
+	printf("%s\n",res);
 }
 
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    while (t--)
-    {
-        char a[100]={'\0'},b[100]={'\0'};
-        scanf("%s %s",&a,&b);
-        tong(a,b);
-    }
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{
+		solve();
+	}
 }
